@@ -80,7 +80,7 @@ export const getBlog = async (req, res, next) => {
 export const createBlog = async (req, res, next) => {
   try {
     // Add user to req.body
-    req.body.author = req.user.id;
+    req.body.author = req.user._id;
 
     // Handle image uploads if any
     const images = [];

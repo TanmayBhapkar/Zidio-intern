@@ -20,10 +20,24 @@ export default function BlogCard({ blog }) {
             </svg>
           </Link>
         </div>
+        {blog.category && (
+          <div className="card-category">
+            <span>{blog.category}</span>
+          </div>
+        )}
       </div>
       <div className="card-body">
         <h3>{blog.title}</h3>
         <p dangerouslySetInnerHTML={{ __html: blog.excerpt || (blog.content.slice(0, 120) + "...") }} />
+        
+        {blog.tags && blog.tags.length > 0 && (
+          <div className="card-tags">
+            {blog.tags.slice(0, 2).map((tag, index) => (
+              <span key={index} className="card-tag">{tag}</span>
+            ))}
+          </div>
+        )}
+        
         <div className="card-meta">
           <small>By {blog.author?.name || "Unknown"}</small>
           <Link to={`/blogs/${blog._id}`} className="read-more">Read more</Link>

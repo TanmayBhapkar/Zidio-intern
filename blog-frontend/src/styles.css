@@ -316,7 +316,7 @@ body{
 
 .card{
   background: var(--card);
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: var(--shadow);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -324,13 +324,15 @@ body{
   display: flex;
   flex-direction: column;
   position: relative;
+  border: 1px solid transparent;
 }
 
 .card:hover {
-  transform: scale(1.05);
+  transform: translateY(-8px);
   box-shadow: var(--hover-shadow);
   background: var(--card-hover);
   z-index: 10;
+  border-color: var(--primary);
 }
 
 .card-img-container {
@@ -346,7 +348,7 @@ body{
 }
 
 .card:hover .card-img {
-  filter: brightness(0.7);
+  filter: brightness(1);
   transform: scale(1.1);
 }
 
@@ -366,6 +368,22 @@ body{
 
 .card:hover .card-overlay {
   opacity: 1;
+}
+
+.card-category {
+  position: absolute;
+  top: 15px;
+  left: 10px;
+  background: var(--primary);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 5;
 }
 
 .card-play-btn {
@@ -399,6 +417,22 @@ body{
 
 .card:hover .card-body {
   padding: 1.25rem 1rem;
+}
+
+.card-tags {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.card-tag {
+  background: rgba(65, 105, 225, 0.15);
+  color: var(--primary);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 500;
 }
 
 .card-body h3 {
@@ -722,4 +756,10 @@ body{
   }
   
   .card-body {
-    padding: 1rem
+    padding: 1rem;
+  }
+  
+  .card-body h3 {
+    font-size: 1.125rem;
+  }
+}

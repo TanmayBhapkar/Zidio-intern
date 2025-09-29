@@ -1,19 +1,5 @@
 import jwt from 'jsonwebtoken';
-// Mock User for testing
-const mockUsers = [
-  {
-    _id: '60d0fe4f5311236168a109ca',
-    name: 'Test User',
-    email: 'test@example.com',
-    role: 'user'
-  },
-  {
-    _id: '60d0fe4f5311236168a109cb',
-    name: 'Admin User',
-    email: 'admin@example.com',
-    role: 'admin'
-  }
-];
+import User from '../models/User.js';
 
 // Protect routes
 export const protect = async (req, res, next) => {
@@ -37,12 +23,23 @@ export const protect = async (req, res, next) => {
     // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Set user in req object - using mock data for testing
-    req.user = mockUsers.find(user => user._id === decoded.id) || {
-      _id: decoded.id,
-      name: 'Mock User',
-      email: 'mock@example.com',
-      role: 'user'
+    // Find user by ID from database
+    const user = await User.findById(decoded.id);
+    
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        error: 'User not found'
+      });
+    }
+    
+    // Set user in req object
+    req.user = {
+      id: user._id.toString(),
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role
     };
 
     next();
